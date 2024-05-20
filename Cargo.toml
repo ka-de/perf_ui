@@ -1,28 +1,24 @@
 [package]
-name = "iyes_perf_ui"
+name = "perf_ui"
 version = "0.2.3"
-authors = ["Ida 'Iyes'"]
+authors = ["_ka_de"]
 edition = "2021"
-license = "MIT OR Apache-2.0"
+license = "MIT"
 readme = "README.md"
-repository = "https://github.com/IyesGames/iyes_perf_ui"
-homepage = "https://github.com/IyesGames/iyes_perf_ui"
+repository = "https://github.com/ka-de/perf_ui"
+homepage = "https://github.com/ka-de/perf_ui"
 keywords = ["gamedev", "bevy"]
 categories = ["game-engines"]
 description = "Customizable Performance/Debug Overlay for Bevy UI"
 exclude = ["assets/*", "screenshots/*"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [features]
 default = [ "entries" ]
-# Enable the collection of built-in / predefined Perf UI Entries
 entries = []
-# Enable optional `chrono` dependency for timezone support in the Clock entry
 chrono = ["dep:chrono"]
 
 [dependencies.bevy]
-version = "0.13"
+version = "0.13.2"
 default-features = false
 features = [
     "bevy_ui",
@@ -37,5 +33,5 @@ features = [
 ]
 
 [dev-dependencies.bevy]
-version = "0.13"
+version = "0.13.2"
 default-features = true
