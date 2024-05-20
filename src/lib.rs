@@ -1,23 +1,3 @@
-//! Customizable Performance/Debug Overlay for Bevy UI
-//!
-//! This crate provides an implementation of an in-game performance/debug UI overlay
-//! for the [Bevy game engine](https://bevyengine.org).
-//!
-//! The goal of this crate is to make it as useful as possible for any Bevy project:
-//!  - Made with Bevy UI (not egui or any other 3rd-party UI solution)
-//!  - Easy to set up (see [`simple`](https://github.com/IyesGames/iyes_perf_ui/blob/v0.2.3/examples/simple.rs) example)
-//!  - Modular! You decide what info you want to display!
-//!    - Choose any combination of predefined entries
-//!      (see [`specific_entries`](https://github.com/IyesGames/iyes_perf_ui/blob/v0.2.3/examples/specific_entries.rs) example):
-//!      - Framerate (FPS), Frame Time, Frame Count, ECS Entity Count, CPU Usage, RAM Usage,
-//!        Wall Clock, Running Time, Fixed Time Step, Fixed Overstep,
-//!        Cursor Position, Window Resolution, Window Scale Factor, Window Mode, Present Mode
-//!    - Implement your own custom entries to display anything you like!
-//!      - (see [`custom_minimal`](https://github.com/IyesGames/iyes_perf_ui/blob/v0.2.3/examples/custom_minimal.rs) and [`custom`](https://github.com/IyesGames/iyes_perf_ui/blob/v0.2.3/examples/custom.rs) examples)
-//!  - Customizable appearance/styling (see [`settings`](https://github.com/IyesGames/iyes_perf_ui/blob/v0.2.3/examples/settings.rs), [`fps_minimalist`](https://github.com/IyesGames/iyes_perf_ui/blob/v0.2.3/examples/fps_minimalist.rs) examples)
-//!  - Support for highlighting values using a custom font or color!
-//!    - Allows you to quickly notice if something demands your attention.
-//!
 //! Spawning a Perf UI can be as simple as:
 //!
 //! ```rust
@@ -582,9 +562,31 @@ fn sort_perf_ui_entries(
     }
 }
 
-/// System that updates the values of Perf UI entries of a given type
-///
-/// Exposed as `pub` so you can refer to it for ordering.
+/**
+ * Updates the performance UI entries with new values.
+ *
+ * This system function iterates over all performance UI entries of a specific type `T` that implements the `PerfUiEntry` trait.
+ * It updates the text and background color of each entry based on the current value provided by the `entry_param`.
+ *
+ * # Type Parameters
+ *
+ * - `T`: The type of the performance UI entry, which must implement the `PerfUiEntry` trait.
+ *
+ * # Arguments
+ *
+ * - `q_root`: A query that retrieves the `PerfUiRoot` and the entry of type `T`.
+ * - `mut q_entry`: A query that retrieves the mutable `BackgroundColor` component of the entry.
+ * - `mut q_text`: A query that retrieves the mutable `Text` component and the `PerfUiTextMarker` of the entry.
+ * - `entry_param`: The system parameter that provides the current value for the entry.
+ *
+ * # Behavior
+ * 
+ * For each entry, the function checks if a new value is available. If so, it formats the value as text,
+ * applies the appropriate color based on the value, and adjusts the text alignment based on the width hint.
+ * If the value meets the highlight threshold, the highlighted font and background color are applied.
+ * 
+ * If no new value is available, an error message is displayed with the error color.
+*/
 #[allow(private_interfaces)]
 pub fn update_perf_ui_entry<T: PerfUiEntry>(
     q_root: Query<(&PerfUiRoot, &T)>,
