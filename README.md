@@ -1,7 +1,5 @@
 # Customizable Performance/Debug Overlay for Bevy UI
 
-https://crates.io/crates/iyes_perf_ui
-
 ![docs](https://docs.rs/iyes_perf_ui/)
 ![MIT License](./LICENSE)
 

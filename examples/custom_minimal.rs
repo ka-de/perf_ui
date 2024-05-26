@@ -15,7 +15,7 @@ use bevy::input::mouse::MouseButtonInput;
 use bevy::input::ButtonState;
 use bevy::ecs::system::lifetimeless::SRes;
 use bevy::ecs::system::SystemParam;
-use iyes_perf_ui::prelude::*;
+use perf_ui::prelude::*;
 
 fn main() {
     App::new()
@@ -72,7 +72,7 @@ impl PerfUiEntry for PerfUiTimeSinceLastClick {
 
     fn update_value(
         &self,
-        (time, lastclick): &mut <Self::SystemParam as SystemParam>::Item<'_, '_>,
+        (time, lastclick): &mut <Self::SystemParam as SystemParam>::Item<'_, '_>
     ) -> Option<Self::Value> {
         let d = time.elapsed() - lastclick.last_click;
         Some(d.as_secs())
@@ -85,7 +85,7 @@ impl PerfUiEntry for PerfUiTimeSinceLastClick {
 fn handle_click(
     time: Res<Time>,
     mut lastclick: ResMut<TimeSinceLastClick>,
-    mut evr_mouse: EventReader<MouseButtonInput>,
+    mut evr_mouse: EventReader<MouseButtonInput>
 ) {
     for ev in evr_mouse.read() {
         if ev.state == ButtonState::Pressed {

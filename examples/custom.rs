@@ -16,7 +16,7 @@ use bevy::input::mouse::MouseButtonInput;
 use bevy::input::ButtonState;
 use bevy::ecs::system::lifetimeless::SRes;
 use bevy::ecs::system::SystemParam;
-use iyes_perf_ui::prelude::*;
+use perf_ui::prelude::*;
 
 fn main() {
     App::new()
@@ -93,7 +93,7 @@ impl Default for PerfUiTimeSinceLastClick {
             digits: 2,
             precision: 3,
             // get the correct value from the library
-            sort_key: iyes_perf_ui::utils::next_sort_key(),
+            sort_key: perf_ui::utils::next_sort_key(),
         }
     }
 }
@@ -122,18 +122,15 @@ impl PerfUiEntry for PerfUiTimeSinceLastClick {
     // Called every frame to compute a new value to show
     fn update_value(
         &self,
-        (time, lastclick): &mut <Self::SystemParam as SystemParam>::Item<'_, '_>,
+        (time, lastclick): &mut <Self::SystemParam as SystemParam>::Item<'_, '_>
     ) -> Option<Self::Value> {
         let d = time.elapsed() - lastclick.last_click;
         Some(d.as_secs_f64())
     }
 
-    fn format_value(
-        &self,
-        value: &Self::Value,
-    ) -> String {
+    fn format_value(&self, value: &Self::Value) -> String {
         // we can use a premade helper function for nice-looking formatting
-        let mut s = iyes_perf_ui::utils::format_pretty_float(self.digits, self.precision, *value);
+        let mut s = perf_ui::utils::format_pretty_float(self.digits, self.precision, *value);
         // (and append units to it)
         if self.display_units {
             s.push_str(" s");
@@ -147,7 +144,7 @@ impl PerfUiEntry for PerfUiTimeSinceLastClick {
     // is expected to have.
     fn width_hint(&self) -> usize {
         // there is a helper we can use, since we use `format_pretty_float`
-        let w = iyes_perf_ui::utils::width_hint_pretty_float(self.digits, self.precision);
+        let w = perf_ui::utils::width_hint_pretty_float(self.digits, self.precision);
         if self.display_units {
             w + 2
         } else {
@@ -156,28 +153,20 @@ impl PerfUiEntry for PerfUiTimeSinceLastClick {
     }
 
     // (optional) Called every frame to determine if a custom color should be used for the value
-    fn value_color(
-        &self,
-        value: &Self::Value,
-    ) -> Option<Color> {
+    fn value_color(&self, value: &Self::Value) -> Option<Color> {
         self.color_gradient.get_color_for_value(*value as f32)
     }
 
     // (optional) Called every frame to determine if the value should be highlighted
-    fn value_highlight(
-        &self,
-        value: &Self::Value,
-    ) -> bool {
-        self.threshold_highlight
-            .map(|t| (*value as f32) > t)
-            .unwrap_or(false)
+    fn value_highlight(&self, value: &Self::Value) -> bool {
+        self.threshold_highlight.map(|t| (*value as f32) > t).unwrap_or(false)
     }
 }
 
 fn handle_click(
     time: Res<Time>,
     mut lastclick: ResMut<TimeSinceLastClick>,
-    mut evr_mouse: EventReader<MouseButtonInput>,
+    mut evr_mouse: EventReader<MouseButtonInput>
 ) {
     for ev in evr_mouse.read() {
         if ev.state == ButtonState::Pressed {

@@ -1,7 +1,7 @@
 //! This example shows how to customize the appearance of your Perf UIs.
 
 use bevy::prelude::*;
-use iyes_perf_ui::prelude::*;
+use perf_ui::prelude::*;
 
 fn main() {
     App::new()
@@ -77,8 +77,10 @@ fn setup(mut commands: Commands, ass: Res<AssetServer>) {
         },
         PerfUiEntryFrameTime {
             label: "Frame Duration (current)".into(),
-            color_gradient: ColorGradient::new()
-                .with_stops([(1.0, Color::CYAN), (8.0, Color::PURPLE)]),
+            color_gradient: ColorGradient::new().with_stops([
+                (1.0, Color::CYAN),
+                (8.0, Color::PURPLE),
+            ]),
             threshold_highlight: Some(10.0),
             digits: 2,
             precision: 4,
@@ -86,8 +88,10 @@ fn setup(mut commands: Commands, ass: Res<AssetServer>) {
         },
         PerfUiEntryFrameTimeWorst {
             label: "Frame Duration (worst)".into(),
-            color_gradient: ColorGradient::new()
-                .with_stops([(1.0, Color::CYAN), (8.0, Color::PURPLE)]),
+            color_gradient: ColorGradient::new().with_stops([
+                (1.0, Color::CYAN),
+                (8.0, Color::PURPLE),
+            ]),
             threshold_highlight: Some(10.0),
             digits: 2,
             precision: 4,
@@ -113,16 +117,20 @@ fn setup(mut commands: Commands, ass: Res<AssetServer>) {
         },
         PerfUiEntryCpuUsage {
             label: "System CPU Utilization".into(),
-            color_gradient: ColorGradient::new()
-                .with_stops([(0.0, Color::BLUE), (100.0, Color::RED)]),
+            color_gradient: ColorGradient::new().with_stops([
+                (0.0, Color::BLUE),
+                (100.0, Color::RED),
+            ]),
             threshold_highlight: None,
             precision: 1,
             ..default()
         },
         PerfUiEntryMemUsage {
             label: "System RAM Utilization".into(),
-            color_gradient: ColorGradient::new()
-                .with_stops([(0.0, Color::BLUE), (100.0, Color::RED)]),
+            color_gradient: ColorGradient::new().with_stops([
+                (0.0, Color::BLUE),
+                (100.0, Color::RED),
+            ]),
             threshold_highlight: None,
             precision: 1,
             ..default()
