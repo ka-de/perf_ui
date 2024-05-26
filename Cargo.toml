@@ -18,7 +18,7 @@ entries = []
 chrono = ["dep:chrono"]
 
 [dependencies.bevy]
-git = "https://github.com/ka-de/bevy"
+version = "0.13.2"
 default-features = false
 features = [
     "bevy_ui",
@@ -33,5 +33,5 @@ features = [
 ]
 
 [dev-dependencies.bevy]
-git = "https://github.com/ka-de/bevy"
+version = "0.13.2"
 default-features = true

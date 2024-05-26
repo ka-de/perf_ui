@@ -2,7 +2,7 @@
 //! (using defaults for everything)
 
 use bevy::prelude::*;
-use iyes_perf_ui::prelude::*;
+use perf_ui::prelude::*;
 
 fn main() {
     App::new()
