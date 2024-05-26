@@ -56,7 +56,7 @@ pub(crate) fn predefined_entries_plugin(app: &mut App) {
     app.add_perf_ui_entry_type::<PerfUiEntryCursorPosition>();
 }
 
-/// Bundle for a Perf UI with all entry types provided by `iyes_perf_ui`.
+/// Bundle for a Perf UI with all entry types provided by `perf_ui`.
 ///
 /// This gives you a simple one-liner to spawn a comprehensive Perf UI!
 ///
